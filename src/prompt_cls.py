@@ -1,8 +1,8 @@
 # prompt_cls.py
 ## You will need to replace all #PLACEHOLDER# lines  
+from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
-from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -19,19 +19,19 @@ prompt = PromptTemplate(
     template=template
 )
 # Initialize the Gemini LLM
-#PLACEHOLDER#
-
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
+geminiAi = prompt | llm
 #Function to get user input and generate response
 def chat_to_llm():
     while True:
        # collect user_input or quit to quit (check lower case )
-        #PLACEHOLDER#
-        #PLACEHOLDER#
+        user_input = input("Enter text or 'quit' to quit\n")
+        if user_input.lower() == "quit":        
             break
         # Format the prompt with user input
-        #PLACEHOLDER#
+        formatPrompt = prompt.format(text=user_input)
         # Get response from LLM
-       #PLACEHOLDER#
+        response = geminiAi.invoke(formatPrompt)
         print("Summary:", response.content)        
 
 if __name__ =="__main__":
